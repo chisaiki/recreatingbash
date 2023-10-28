@@ -26,10 +26,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ****************************************************************************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <ctype.h>
+#include "defaultheader.h"
 
 void instruction()
 {
@@ -72,7 +69,7 @@ bool checkifvalid(int a, char *b[])
 //if it doesnt contain any alphabet letters then it will run
 int runifvalid(int a, int argc, char *argv[])
 {
- if ( a != 0)
+ if (a != 0)
     {
         switch(argc) //cases are based on the number of arguments given in command line
         {
@@ -157,7 +154,7 @@ int runifvalid(int a, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    //int check = checkifvalid(argc, argv);
+    //int check = checkifvalid(argc, argv); 
     runifvalid(checkifvalid(argc, argv), argc, argv);
               
 }

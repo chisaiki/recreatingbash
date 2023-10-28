@@ -22,3 +22,5 @@
 **I dont even need to store it in a variable I can directly access the argument's characters by treating it like a 2D array
 
 ** I had to change isalpha to isdigit instead, since symbols will pass through the program even though they arent valid integers
+
+**All errors go to the error stream except for usage errors
