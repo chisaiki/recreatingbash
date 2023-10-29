@@ -53,11 +53,20 @@ bool checkifvalid(int a, char *b[])
         int canprint = false;
         for(int j = 0 ; b[i][j] != '\0'; j++)
         {
-            if(isdigit(b[i][j]) == 0 && b[i][j] != '-' ) 
+            //This will make sure my flags won't be taken in as arguments, if it did then nothing would run
+            if(b[i][j] == '-' && (b[i][j + 1] == 'f' || b[i][j + 1] == 's' || b[i][j + 1] == 'w'))
             {
-            checkifdigit = false;
-            canprint = true;
-            } 
+                i++;
+            }
+
+            else
+            {
+                if(isdigit(b[i][j]) == 0 && b[i][j] != '-') 
+                {
+                checkifdigit = false;
+                canprint = true;
+                } 
+            }
         }
         if(canprint == true)
         fprintf(stderr,"\n'%s' is an invalid argument. Must be numeric integer values.\n", b[i]);
@@ -154,7 +163,28 @@ int runifvalid(int a, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    //int check = checkifvalid(argc, argv); 
+    int opt;
+    while((opt = getopt(argc, argv, "fsw")) != -1)
+    {
+        switch(opt)
+        {
+            case 'f':
+            printf("yolo");
+            break;
+
+            case 's':
+            printf("hi");
+            break;
+
+            case 'w':
+            printf("bye");
+            break;  
+
+            case '?':
+            printf("Unknown option: %c\n", optopt);
+            break;
+        }
+    }
     runifvalid(checkifvalid(argc, argv), argc, argv);
               
 }
@@ -173,6 +203,7 @@ https://stackoverflow.com/questions/43085731/getting-specific-character-values-f
 https://www.educba.com/stderr-in-c/
 https://stackoverflow.com/questions/48367022/c-iterate-through-char-array-with-a-pointer
 */
+
 
 
 
