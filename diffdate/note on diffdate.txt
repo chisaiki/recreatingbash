@@ -1,0 +1,15 @@
+2 seperate break statements based on the amount of inputs (1 or 2)
+
+case '1':
+
+find the difference between today and the date given, if input_year - current year > 0 ---> future
+
+else past 
+
+case '2':
+seperate differe parts of the date (if year1 - year2 < 0 then year1 is earlier)
+(if year1 - year2 > 0 then year1 is later than year 2)
+But it looks like it wants me to do the second if in terms of year2 being ".. days before" year1
+
+Output must be based on LC_TIME locale 
+

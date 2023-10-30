@@ -1,0 +1,65 @@
+/* bool checkifvalid(int a, char *b[])
+
+{
+    bool checkifalpha = false;
+
+    for(int i = 0; i < a; i++)
+    {
+        char argvalue = b[i][0];
+        char secondchar = b[i][1];
+
+        if((isalpha(argvalue) == 0 && isalpha(secondchar) != 0) || isalpha(argvalue) != 0)
+        {
+           fprintf(stderr,"\n'%s' is an invalid argument. Must be numeric integer values.\n", b[i]);
+           checkifalpha = true;
+        } 
+       //its only reading the first letter in char --> do argv[1][1]  :: will read the first char of the first argument   
+    }
+
+    return checkifalpha;
+} */
+
+**I dont even need to store it in a variable I can directly access the argument's characters by treating it like a 2D array
+
+** I had to change isalpha to isdigit instead, since symbols will pass through the program even though they arent valid integers
+
+**All errors go to the error stream except for usage errors
+
+Next Steps: Add flags
+
+https://people.cs.rutgers.edu/~pxk/416/notes/c-tutorials/getopt.html
+https://www.geeksforgeeks.org/getopt-function-in-c-to-parse-command-line-arguments/
+https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html
+
+ 
+ NOTES ON GETOPT:
+ getopt takes three parameters. 
+ The first two are straight from main: the argument count and argument list. 
+ The third is the one that defines the syntax.
+
+ If we have "df:mps:" since we accept command flags of -d, -f, -m, -p, and -s. 
+ Of these -f and -s require parameter. 
+ Of these -f and -s require a follow-on name so we type : after them.
+ Any option that requires a parameter alongside it is suffixed by a colon (:)
+
+How it Works:
+ getopt is called repeatedly. Each time it is called, it returns the next command-line option that it found. 
+ If theres a follow-on parameter, it is stored in optarg. 
+ If getopt encounters an option that's not in the list given to it, it returns a '?' character to signify an error. 
+ If there are no more command-line options found then getopt returns a -1. 
+ ( usually program calls to getopt in a while loop with a switch statement within with a case for each option.)
+
+$seq --separator="hi" 10
+1hi2hi3hi4hi5hi6hi7hi8hi9hi10
+
+$ seq -s="hi" 10
+1=hi2=hi3=hi4=hi5=hi6=hi7=hi8=hi9=hi10
+
+$seq -s."hi" 10
+1.hi2.hi3.hi4.hi5.hi6.hi7.hi8.hi9.hi10
+
+$seq -s hi 10
+1hi2hi3hi4hi5hi6hi7hi8hi9hi10
+
+$seq -s " hi " 10
+1 hi 2 hi 3 hi 4 hi 5 hi 6 hi 7 hi 8 hi 9 hi 10
