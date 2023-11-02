@@ -67,53 +67,53 @@ bool validdate(int b, char *a[])
    
 void case2(char *a[])
 {
-         //Finding current time 
-         time_t date_t; //An arithmetic type capable of representing time                  
-         struct tm *date; //Structure containing a calendar date and time broken down into its components
-         char currenttime[50];
-         time(&date_t); //Gets current time and stores into struct tm called date
-         date = localtime(&date_t);
-         date_t = mktime(date); //broken down time --> time_t 
-         strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns the time into a string and stores in currenttime
+   //Finding current time 
+   time_t date_t; //An arithmetic type capable of representing time                  
+   struct tm *date; //Structure containing a calendar date and time broken down into its components
+   char currenttime[50];
+   time(&date_t); //Gets current time and stores into struct tm called date
+   date = localtime(&date_t);
+   date_t = mktime(date); //broken down time --> time_t 
+   strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns the time into a string and stores in currenttime
 
-
-         //Turning arg1's date into broken down time in order to compare times
-         struct tm arg1 = {0};
-         strptime(a[1], "%Y-%m-%d", &arg1); 
-         time_t arg1_t;
-         arg1_t = mktime(&arg1); 
+   
+   //Turning arg1's date into broken down time in order to compare times
+   struct tm arg1 = {0};
+   strptime(a[1], "%Y-%m-%d", &arg1); 
+   time_t arg1_t;
+   arg1_t = mktime(&arg1); 
 
          
-         //Finding the time difference
-         long double seconds = difftime(arg1_t,date_t);         
-         int days = seconds / 86400; //86400 the number of seconds per day
+   //Finding the time difference
+   long double seconds = difftime(arg1_t,date_t);         
+   int days = seconds / 86400; //86400 the number of seconds per day
 
-         //Getting specific string formatting for input string
-         char size[100];
-         struct tm *info;
-         info = localtime(&arg1_t);
+   //Getting specific string formatting for input string
+   char size[100];
+   struct tm *info;
+   info = localtime(&arg1_t);
 
-         strftime(size,sizeof(size),"%B %d, %Y", info); //stores the string value inside size
+   strftime(size,sizeof(size),"%B %d, %Y", info); //stores the string value inside size
 
 
-            if (days == 0)
-            {
-               printf("%s is the same day as today \n", size);
-            }
+      if (days == 0)
+      {
+         printf("%s is the same day as today \n", size);
+      }
 
-            else 
-            {
-                  if(seconds < 0)
-               {
-                  days = abs(days);
-                  printf("%s is %d day(s) before today \n", size, days);
-               }
-               else if (seconds > 0)
-               {
-                  printf("%s is %d day(s) after today \n", size, days);
-               } 
+      else 
+      {
+         if(seconds < 0)
+         {
+            days = abs(days); 
+            printf("%s is %d day(s) before today \n", size, days);
+         }
+         else if (seconds > 0)
+         {
+            printf("%s is %d day(s) after today \n", size, days);
+         } 
 
-            }
+      }
 }
 
 void case3(char *a[])
@@ -122,7 +122,7 @@ void case3(char *a[])
    struct tm arg1 = {0}; //tm must be initialized before the calling strptime
 
    //Changing string values in argv[1] and argv[2] into time_t 
-   strptime(a[2],"%Y-%m-%d", &arg2); //Returns a broken down time structure named a
+   strptime(a[2],"%Y-%m-%d", &arg2); //Returns a broken down time structure named arg2
    strptime(a[1], "%Y-%m-%d", &arg1); //This function does not initialize tm but stores only the values specified.
 
    time_t arg2_t, arg1_t;
@@ -133,20 +133,20 @@ void case3(char *a[])
    long double seconds = difftime(arg2_t,arg1_t); //needs a time_t format
    int days = seconds / 86400; //86400 the number of seconds per day
 
-      //Getting specific string formatting for input string argv[2]
-      char arg2_size[100];
-      struct tm *arg2_tm;
-      arg2_tm = localtime(&arg2_t);
+   //Getting specific string formatting for input string argv[2]
+   char arg2_size[100];
+   struct tm *arg2_tm;
+   arg2_tm = localtime(&arg2_t);
 
-      strftime(arg2_size,sizeof(arg2_size),"%B %d, %Y", arg2_tm); 
+   strftime(arg2_size,sizeof(arg2_size),"%B %d, %Y", arg2_tm); 
 
 
-      //Getting specific string formatting for input string argv[1]
-      char arg1_size[100];
-      struct tm *arg1_tm;
-      arg1_tm = localtime(&arg1_t);
+   //Getting specific string formatting for input string argv[1]
+   char arg1_size[100];
+   struct tm *arg1_tm;
+   arg1_tm = localtime(&arg1_t);
 
-      strftime(arg1_size,sizeof(arg1_size),"%B %d, %Y", arg1_tm); 
+   strftime(arg1_size,sizeof(arg1_size),"%B %d, %Y", arg1_tm); 
 
       if(days == 0)
       {
@@ -175,9 +175,9 @@ int main(int argc, char *argv[])
         case 1: 
         {
          fprintf(stderr, "Error: Not Enough Arguments.");
+         break;
         }
-        break;
-
+        
 
         case 2:
         {
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
          {
            case2(argv);
          }
-        break;
+         break;
         }
 
 
@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
          {
             case3(argv);
          }
-        break;
+         break;
         }
     } 
 }
