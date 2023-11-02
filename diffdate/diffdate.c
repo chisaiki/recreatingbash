@@ -99,7 +99,6 @@ void case2(char *a[])
             if (days == 0)
             {
                printf("%s is the same day as today \n", size);
-
             }
 
             else 
@@ -167,7 +166,6 @@ void case3(char *a[])
       {
          printf("\n%s is %d day(s) after %s \n",arg2_size, days, arg1_size);
       }
-
       }     
 }
 
