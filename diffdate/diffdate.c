@@ -68,8 +68,8 @@ bool validdate(int b, char *a[])
 void case2(char *a[])
 {
          //Finding current time 
-         time_t date_t; //An arithmetic type capable of representing time.                   
-         struct tm *date; //Structure containing a calendar date and time broken down into its components.
+         time_t date_t; //An arithmetic type capable of representing time                  
+         struct tm *date; //Structure containing a calendar date and time broken down into its components
          char currenttime[50];
          time(&date_t);
          date = localtime(&date_t);
