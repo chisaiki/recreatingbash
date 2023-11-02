@@ -1,8 +1,8 @@
 #define _XOPEN_SOURCE //Note: When running WSL I get "warning: implicit declaration of function ‘strptime’"
 #include <stdio.h>
-#include <locale.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 #include <stdbool.h>
 
 bool validdate(int b, char *a[])
