@@ -71,7 +71,7 @@ void case2(char *a[])
          time_t date_t; //An arithmetic type capable of representing time                  
          struct tm *date; //Structure containing a calendar date and time broken down into its components
          char currenttime[50];
-         time(&date_t);
+         time(&date_t); //Gets current time and stores into struct tm called date
          date = localtime(&date_t);
          date_t = mktime(date); //broken down time --> time_t 
          strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns the time into a string and stores in currenttime
@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
 https://en.cppreference.com/w/c/chrono/strftime#:~:text=Converts%20the%20date%20and%20time,to%20count%20bytes%20are%20written.
 https://www.tutorialspoint.com/c_standard_library/time_h.htm
 https://www.tutorialspoint.com/c_standard_library/c_function_ctime.htm
-https://cplusplus.com/reference/ctime/difftime/  (Finding time)
+https://cplusplus.com/reference/ctime/difftime/  (Finding time difference)
 https://cboard.cprogramming.com/c-programming/169114-how-convert-string-time_t.html
 https://man7.org/linux/man-pages/man3/strptime.3.html
 
