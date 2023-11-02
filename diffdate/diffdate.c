@@ -31,7 +31,7 @@ bool validdate(int b, char *a[])
                else if((day>=1 && day<=28) && (month==2))
                   flag = true;        
 
-               else if(day==29 && month==2 && (year%400==0 ||(year%4==0 && year%100!=0)))
+               else if(day==29 && month==2 && (year%400==0 ||(year%4==0 && year%100!=0))) //leap year calculations
                   flag = true;        
 
                else
@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
 { 
     switch(argc)
     { 
-        case 1: //Error: I initially typed case '1', this results in an error because argc is an int not char!
+        case 1: 
         {
          fprintf(stderr, "Error: Not Enough Arguments.");
         }
