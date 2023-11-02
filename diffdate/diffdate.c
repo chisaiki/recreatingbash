@@ -114,8 +114,6 @@ void case2(char *a[])
                } 
 
             }
-            
-            
 }
 
 void case3(char *a[])
@@ -180,6 +178,7 @@ int main(int argc, char *argv[])
         }
         break;
 
+
         case 2:
         {
          if(validdate(argc, argv) == true) 
@@ -188,6 +187,7 @@ int main(int argc, char *argv[])
          }
         break;
         }
+
 
         case 3: 
         {
