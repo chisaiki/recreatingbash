@@ -5,19 +5,16 @@
 #include <time.h>
 #include <stdbool.h>
 
-//The output dates must be in the form Fullmonthname dayofmonth , year
-//May 01, 2024 is 185 days after today
-
-
 bool validdate(int b, char *a[])
 {  
    bool flag = true;
 
    for (int i = 1; i < b; i++)
    {
-      int year = 0, month = 0, day = 0;
-      if (sscanf(a[i], "%4d-%2d-%2d", &year, &month, &day) == 3) 
+      int year = 0, month = 0, day = 0; 
+      if (sscanf(a[i], "%4d-%2d-%2d", &year, &month, &day) == 3) //Checking if string format is valid
       {
+
       //Some part of this code is used from website, see resources for credit
       if (year>=1900 && year<=9999)
       {
@@ -65,26 +62,29 @@ bool validdate(int b, char *a[])
          return false;
       } 
    }
-   
  return flag;
 }
    
 void case2(char *a[])
 {
+         //Finding current time 
          time_t date_t; //An arithmetic type capable of representing time.                   
          struct tm *date; //Structure containing a calendar date and time broken down into its components.
          char currenttime[50];
          time(&date_t);
          date = localtime(&date_t);
          date_t = mktime(date); //broken down time --> time_t 
-         strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns into a string and stores in currenttime
+         strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns the time into a string and stores in currenttime
 
+
+         //Turning arg1's date into broken down time in order to compare times
          struct tm arg1 = {0};
          strptime(a[1], "%Y-%m-%d", &arg1); 
          time_t arg1_t;
-         arg1_t = mktime(&arg1); //broken down time --> time_t 
+         arg1_t = mktime(&arg1); 
 
          
+         //Finding the time difference
          long double seconds = difftime(arg1_t,date_t);         
          int days = seconds / 86400; //86400 the number of seconds per day
 
@@ -124,7 +124,7 @@ void case3(char *a[])
    struct tm arg2 = {0}; //Sets all struct values to 0
    struct tm arg1 = {0}; //tm must be initialized before the calling strptime
 
-
+   //Changing string values in argv[1] and argv[2] into time_t 
    strptime(a[2],"%Y-%m-%d", &arg2); //Returns a broken down time structure named a
    strptime(a[1], "%Y-%m-%d", &arg1); //This function does not initialize tm but stores only the values specified.
 
@@ -134,7 +134,6 @@ void case3(char *a[])
    arg1_t = mktime(&arg1);
 
    long double seconds = difftime(arg2_t,arg1_t); //needs a time_t format
-
    int days = seconds / 86400; //86400 the number of seconds per day
 
       //Getting specific string formatting for input string argv[2]
@@ -185,18 +184,15 @@ int main(int argc, char *argv[])
 
         case 2:
         {
-
          if(validdate(argc, argv) == true) 
          {
            case2(argv);
          }
-
         break;
         }
 
         case 3: 
         {
-         
          if(validdate(argc, argv) == true)
          {
             case3(argv);
@@ -242,4 +238,5 @@ time_t is a data type used by C and C++ programs to represent dates and times in
 time_t is actually just an integer, a whole number, that counts the number of seconds 
 since January 1, 1970 at 12:00 AM Greenwich Mean Time. 
 A time_t value of 0 would be 12:00:00 AM (exactly midnight) 1-Jan-1970, 
-a time_t value of 1 would be 12:00:01 AM (one second after midnight) 1-Jan-1970, etc.. */
+a time_t value of 1 would be 12:00:01 AM (one second after midnight) 1-Jan-1970, etc.. 
+*/
