@@ -22,23 +22,23 @@ bool validdate(int b, char *a[])
          if (month>=1 && month<=12)
          {
                //check days
-               if((day>=1 && day<=31) && (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12))
-                  flag = true;
+            if((day>=1 && day<=31) && (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12))
+            flag = true;
                
-               else if((day>=1 && day<=30) && (month==4 || month==6 || month==9 || month==11))
-                  flag = true;
+            else if((day>=1 && day<=30) && (month==4 || month==6 || month==9 || month==11))
+            flag = true;
 
-               else if((day>=1 && day<=28) && (month==2))
-                  flag = true;        
+            else if((day>=1 && day<=28) && (month==2))
+            flag = true;        
 
-               else if(day==29 && month==2 && (year%400==0 ||(year%4==0 && year%100!=0))) //leap year calculations
-                  flag = true;        
+            else if(day==29 && month==2 && (year%400==0 ||(year%4==0 && year%100!=0))) //leap year calculations
+            flag = true;        
 
-               else
-               {
-                  fprintf(stderr,"'%s' does not have a valid day.\n", a[i]);
-                  flag = false;
-               }
+            else
+            {
+               fprintf(stderr,"'%s' does not have a valid day.\n", a[i]);
+               flag = false;
+            }
                   
          }
          else
@@ -67,6 +67,7 @@ bool validdate(int b, char *a[])
    
 void case2(char *a[])
 {
+   setlocale(LC_ALL, "");
    //Finding current time 
    time_t date_t; //An arithmetic type capable of representing time                  
    struct tm *date; //Structure containing a calendar date and time broken down into its components
@@ -95,7 +96,6 @@ void case2(char *a[])
 
    strftime(size,sizeof(size),"%B %d, %Y", info); //stores the string value inside size
 
-
       if (days == 0)
       {
          printf("%s is the same day as today \n", size);
@@ -118,6 +118,7 @@ void case2(char *a[])
 
 void case3(char *a[])
 {
+   setlocale(LC_ALL, "");
    struct tm arg2 = {0}; //Sets all struct values to 0
    struct tm arg1 = {0}; //tm must be initialized before the calling strptime
 
@@ -208,6 +209,7 @@ https://www.tutorialspoint.com/c_standard_library/c_function_ctime.htm
 https://cplusplus.com/reference/ctime/difftime/  (Finding time difference)
 https://cboard.cprogramming.com/c-programming/169114-how-convert-string-time_t.html
 https://man7.org/linux/man-pages/man3/strptime.3.html
+https://stackoverflow.com/questions/50614923/how-is-the-locale-of-a-c-program-set-to-the-c-locale
 
 Understanding Time:
 https://www1.udel.edu/CEND/rugg/Cfall/slides/prg17-04.html#:~:text=time_t%20An%20arithmetic%20type%20capable,called%20the%20broken%2Ddyown%20time.
@@ -228,6 +230,9 @@ https://stackoverflow.com/questions/23026148/how-to-convert-seconds-into-yearmon
 
 Part of the code for validating date is from: 
 https://www.includehelp.com/c-programs/validate-date.aspx#google_vignette
+
+How to force strftime to use sytem locale setting:
+https://stackoverflow.com/questions/27236921/strftime-force-output-in-same-local-timezone
 */
 
 /*Note: 
@@ -237,4 +242,9 @@ time_t is actually just an integer, a whole number, that counts the number of se
 since January 1, 1970 at 12:00 AM Greenwich Mean Time. 
 A time_t value of 0 would be 12:00:00 AM (exactly midnight) 1-Jan-1970, 
 a time_t value of 1 would be 12:00:01 AM (one second after midnight) 1-Jan-1970, etc.. 
+
+
+The compiler does not modify the source code and add an explicit call to setlocale() to your main program.
+Rather, the implementation (the combination of compiler and library) is required to ensure 
+that the program behaves 'as if' there was a call to setlocale() at the start.
 */
