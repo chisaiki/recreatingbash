@@ -15,13 +15,13 @@ bool validdate(int b, char *a[])
       if (sscanf(a[i], "%4d-%2d-%2d", &year, &month, &day) == 3) //Checking if string format is valid
       {
 
-      //Some part of this code is used from website, see resources for credit
+      //Some part of this code is used from website user, see resources for credit
       if (year>=1900 && year<=9999)
       {
          //check month
          if (month>=1 && month<=12)
          {
-               //check days
+            //check days
             if((day>=1 && day<=31) && (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12))
             flag = true;
                
@@ -58,7 +58,7 @@ bool validdate(int b, char *a[])
 
       else 
       {
-         fprintf(stderr, "The input was not a valid time format.\n");
+         fprintf(stderr, "Error: The input was not a valid time format. Format: YYYY-MM-DD.\n");
          return false;
       } 
    }
