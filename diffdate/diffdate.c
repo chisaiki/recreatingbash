@@ -67,7 +67,8 @@ bool validdate(int b, char *a[])
    
 void case2(char *a[])
 {
-   setlocale(LC_ALL, "");
+   setlocale(LC_ALL, ""); //Takes current system locale setting
+
    //Finding current time 
    time_t date_t; //An arithmetic type capable of representing time                  
    struct tm *date; //Structure containing a calendar date and time broken down into its components
@@ -167,7 +168,6 @@ void case3(char *a[])
       }
       }     
 }
-
 
 int main(int argc, char *argv[])
 { 
