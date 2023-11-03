@@ -175,11 +175,10 @@ int main(int argc, char *argv[])
     { 
         case 1: 
         {
-         fprintf(stderr, "Error: Not Enough Arguments.");
+         fprintf(stderr, "Error: Not Enough Arguments.\n");
          break;
         }
         
-
         case 2:
         {
          if(validdate(argc, argv) == true) 
@@ -189,7 +188,6 @@ int main(int argc, char *argv[])
          break;
         }
 
-
         case 3: 
         {
          if(validdate(argc, argv) == true)
@@ -198,6 +196,10 @@ int main(int argc, char *argv[])
          }
          break;
         }
+
+        default:
+        fprintf(stderr,"Error: Invalid program usage. Please enter either 1 or 2 dates to compare. Format: YYYY-MM-DD.\n");
+        break;
     } 
 }
 
