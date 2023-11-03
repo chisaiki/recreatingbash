@@ -152,7 +152,7 @@ void case3(char *a[])
 
       if(days == 0)
       {
-         printf("\n%s is %d is the same %s \n",arg2_size, days, arg1_size);
+         printf("\n%s is the same %s \n", arg2_size, arg1_size);
       }
 
       else
