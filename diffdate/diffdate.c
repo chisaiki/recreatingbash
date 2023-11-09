@@ -4,6 +4,7 @@
 #include <time.h>
 #include <locale.h>
 #include <stdbool.h>
+#include<string.h>  
 
 bool validdate(int b, char *a[])
 {  
@@ -12,7 +13,9 @@ bool validdate(int b, char *a[])
    for (int i = 1; i < b; i++)
    {
       int year = 0, month = 0, day = 0; 
-      if (sscanf(a[i], "%4d-%2d-%2d", &year, &month, &day) == 3) //Checking if string format is valid
+      //NOTE: orignally written "%4d-%2d-%d" but I had to change it
+      //because it would allow day = 1234 and only scan the 12 and consider it valid
+      if (sscanf(a[i], "%4d-%2d-%d", &year, &month, &day) == 3) //Checking if string format is valid
       {
 
       //Some part of this code is used from website user, see resources for credit
@@ -68,15 +71,16 @@ bool validdate(int b, char *a[])
 void case2(char *a[])
 {
    setlocale(LC_ALL, ""); //Takes current system locale setting
-
+   
    //Finding current time 
    time_t date_t; //An arithmetic type capable of representing time                  
    struct tm *date; //Structure containing a calendar date and time broken down into its components
    char currenttime[50];
-   time(&date_t); //Gets current time and stores into struct tm called date
-   date = localtime(&date_t);
-   date_t = mktime(date); //broken down time --> time_t 
-   strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); // turns the time into a string and stores in currenttime
+   time(&date_t); //Gets current time and stores into date_t
+   date = localtime(&date_t); //takes time in date_t and puts it into broken down time
+
+   // turns the time into a string and stores in currenttime
+   strftime(currenttime, sizeof(currenttime), "%Y-%m-%d", date); 
 
    
    //Turning arg1's date into broken down time in order to compare times
@@ -86,22 +90,34 @@ void case2(char *a[])
    arg1_t = mktime(&arg1); 
 
          
-   //Finding the time difference
-   long double seconds = difftime(arg1_t,date_t);         
+   //Finding the time difference but for days before a year 
+   double seconds = difftime(arg1_t,date_t);         
    int days = seconds / 86400; //86400 the number of seconds per day
 
    //Getting specific string formatting for input string
    char size[100];
-   struct tm *info;
-   info = localtime(&arg1_t);
+   char arg1date[100];
 
-   strftime(size,sizeof(size),"%B %d, %Y", info); //stores the string value inside size
+   strftime(arg1date,sizeof(arg1date), "%Y-%m-%d", &arg1);
+   strftime(size,sizeof(size),"%B %d, %Y", &arg1); //stores the string value inside size
 
-      if (days == 0)
+      if (strcmp(currenttime, arg1date) == 0)
       {
          printf("%s is the same day as today \n", size);
-      }
+      } //I had to do this because days == 0 results in today and tomorrow = same day to the program
 
+      if(days <= 365 && seconds > 0)
+      {
+      //try to subtract year/month/date manually
+         int yearresult = (arg1.tm_year - date->tm_year) * 365;
+         int monthresult = (arg1.tm_mon - date->tm_mon) * 30;
+         int dayresult = arg1.tm_mday - date->tm_mday;
+
+         int result = yearresult + monthresult + dayresult;
+         printf("\n%s is %d day(s) after today\n", size, result);   
+            
+      }
+      
       else 
       {
          if(seconds < 0)
@@ -112,8 +128,8 @@ void case2(char *a[])
          else if (seconds > 0)
          {
             printf("%s is %d day(s) after today \n", size, days);
-         } 
 
+         }
       }
 }
 
@@ -149,7 +165,7 @@ void case3(char *a[])
    arg1_tm = localtime(&arg1_t);
 
    strftime(arg1_size,sizeof(arg1_size),"%B %d, %Y", arg1_tm); 
-
+   
       if(days == 0)
       {
          printf("\n%s is the same %s \n", arg2_size, arg1_size);
@@ -157,17 +173,17 @@ void case3(char *a[])
 
       else
       {
-         if (seconds < 0)
-      {
-         days = abs(days);
-         printf("\n%s is %d day(s) before %s \n",arg2_size, days, arg1_size);
+         if(seconds < 0)
+         {
+            days = abs(days);
+            printf("\n%s is %d day(s) before %s \n",arg2_size, days, arg1_size);
+         }
+            else if (seconds > 0)
+         {
+            printf("\n%s is %d day(s) after %s \n",arg2_size, days, arg1_size);
+         }
       }
-         else if (seconds > 0)
-      {
-         printf("\n%s is %d day(s) after %s \n",arg2_size, days, arg1_size);
-      }
-      }     
-}
+}    
 
 int main(int argc, char *argv[])
 { 
