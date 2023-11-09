@@ -15,10 +15,10 @@ bool validdate(int b, char *a[])
       int year = 0, month = 0, day = 0; 
       //NOTE: orignally written "%4d-%2d-%d" but I had to change it
       //because it would allow day = 1234 and only scan the 12 and consider it valid
+      
       if (sscanf(a[i], "%4d-%2d-%d", &year, &month, &day) == 3) //Checking if string format is valid
       {
 
-      //Some part of this code is used from website user, see resources for credit
       if (year>=1900 && year<=9999)
       {
          //check month
@@ -55,13 +55,11 @@ bool validdate(int b, char *a[])
          fprintf(stderr,"'%s' does not have a valid year.\n", a[i]);
          flag = false;
       }
-
-      //End of foreign code usage
       }
 
       else 
       {
-         fprintf(stderr, "Error: The input was not a valid time format. Format: YYYY-MM-DD.\n");
+         fprintf(stderr, "Error: The input '%s' was not a valid time format. Format: YYYY-MM-DD.\n", a[i]);
          return false;
       } 
    }
@@ -245,9 +243,6 @@ https://en.cppreference.com/w/c/chrono/time
 
 Convert Seconds to Date:
 https://stackoverflow.com/questions/23026148/how-to-convert-seconds-into-yearmonthday-hourminutesseconds-time
-
-Part of the code for validating date is from: 
-https://www.includehelp.com/c-programs/validate-date.aspx#google_vignette
 
 How to force strftime to use sytem locale setting:
 https://stackoverflow.com/questions/27236921/strftime-force-output-in-same-local-timezone
