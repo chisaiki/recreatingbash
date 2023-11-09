@@ -8,7 +8,7 @@
 
 bool validdate(int b, char *a[])
 {  
-   bool flag = true;
+   bool flag = true; //determines return value
 
    for (int i = 1; i < b; i++)
    {
@@ -50,6 +50,8 @@ bool validdate(int b, char *a[])
                flag = false;
          }
       }
+
+      //All other cases format will be invalid
       else
       {
          fprintf(stderr,"'%s' does not have a valid year.\n", a[i]);
@@ -87,7 +89,7 @@ void case2(char *a[])
    time_t arg1_t;
    arg1_t = mktime(&arg1); 
 
-         
+
    //Finding the time difference but for days before a year 
    double seconds = difftime(arg1_t,date_t);         
    int days = seconds / 86400; //86400 the number of seconds per day
@@ -99,41 +101,45 @@ void case2(char *a[])
    strftime(arg1date,sizeof(arg1date), "%Y-%m-%d", &arg1);
    strftime(size,sizeof(size),"%B %d, %Y", &arg1); //stores the string value inside size
 
+      bool issameday = false;
       if (strcmp(currenttime, arg1date) == 0)
       {
+         issameday = true;
          printf("%s is the same day as today \n", size);
       } //I had to do this because days == 0 results in today and tomorrow = same day to the program
 
-      if(days <= 365 && seconds > 0)
-      {
-      //try to subtract year/month/date manually
-         int yearresult = (arg1.tm_year - date->tm_year) * 365;
-         int monthresult = (arg1.tm_mon - date->tm_mon) * 30;
-         int dayresult = arg1.tm_mday - date->tm_mday;
+         //Because of the 24 hour system, it considers tomorrows date as 0 days after todays date
+         if(days <= 365 && issameday == false)
+         {
+            //subtract year/month/date manually
+            int yearresult = (arg1.tm_year - date->tm_year) * 365;
+            int monthresult = (arg1.tm_mon - date->tm_mon) * 30;
+            int dayresult = arg1.tm_mday - date->tm_mday;
 
-         int result = yearresult + monthresult + dayresult;
-         printf("\n%s is %d day(s) after today\n", size, result);   
-            
-      }
+            int result = yearresult + monthresult + dayresult;
+            printf("\n%s is %d day(s) after today\n", size, result);   
+               
+         }
+         
+         else 
+         {
+            if(seconds < 0 && issameday == false)
+            {
+               days = abs(days); 
+               printf("%s was %d day(s) before today \n", size, days);
+            }
+            else if (seconds > 0 && issameday == false)
+            {
+               printf("%s is %d day(s) after today \n", size, days);
+
+            }
+         }
       
-      else 
-      {
-         if(seconds < 0)
-         {
-            days = abs(days); 
-            printf("%s is %d day(s) before today \n", size, days);
-         }
-         else if (seconds > 0)
-         {
-            printf("%s is %d day(s) after today \n", size, days);
-
-         }
-      }
 }
 
 void case3(char *a[])
 {
-   setlocale(LC_ALL, "");
+   setlocale(LC_ALL, "");//The programs time will depend on current system locales
    struct tm arg2 = {0}; //Sets all struct values to 0
    struct tm arg1 = {0}; //tm must be initialized before the calling strptime
 
@@ -174,7 +180,7 @@ void case3(char *a[])
          if(seconds < 0)
          {
             days = abs(days);
-            printf("\n%s is %d day(s) before %s \n",arg2_size, days, arg1_size);
+            printf("\n%s was %d day(s) before %s \n",arg2_size, days, arg1_size);
          }
             else if (seconds > 0)
          {
