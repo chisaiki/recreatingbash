@@ -68,7 +68,7 @@ bool validdate(int b, char *a[])
  return flag;
 }
    
-void case2(char *a[])
+void oneargumentinput(char *a[])
 {
    setlocale(LC_ALL, ""); //Takes current system locale setting
    
@@ -137,7 +137,7 @@ void case2(char *a[])
       
 }
 
-void case3(char *a[])
+void twoargumentinput(char *a[])
 {
    setlocale(LC_ALL, "");//The programs time will depend on current system locales
    struct tm arg2 = {0}; //Sets all struct values to 0
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
         {
          if(validdate(argc, argv) == true) 
          {
-           case2(argv);
+           oneargumentinput(argv);
          }
          break;
         }
@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
         {
          if(validdate(argc, argv) == true)
          {
-            case3(argv);
+            twoargumentinput(argv);
          }
          break;
         }
