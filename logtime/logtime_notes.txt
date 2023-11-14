@@ -1,0 +1,20 @@
+
+This assignment is not especially challenging algorithmically, but it requires attention to detail and it exercises
+several different knowledge areas.
+
+Goal: List out the total log time for each specified user (found in /var/log/wtmp)
+    If no user is specified then do it for current user
+    if -a option is present then do it for all users 
+    if -f then use a specific file 
+
+Notes: 
+[Finish after?]command-line option parsing (use getopt)
+give file path
+need to open file
+reading kernel data structure (the wtmp file)
+manipulate Unix time values
+print whats written inside onto display 
+
+Error Note:
+While not completely an error, if I use WSL to find /var/log/wtmp it won't be able to find it
+because this is a Linux path not necessarily windows which is what my computer is running in!
