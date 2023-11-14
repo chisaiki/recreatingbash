@@ -191,7 +191,7 @@ void twoargumentinput(char *a[])
 
 int main(int argc, char *argv[])
 { 
-    switch(argc)
+    switch(argc) //cases are based on the number of input arguments
     { 
         case 1: 
         {
