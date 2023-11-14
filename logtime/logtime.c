@@ -9,12 +9,12 @@
 void userinputfile(char *a[])
 {
    if(a[2] == NULL) //Check if file was included in argument
-      {
-         fprintf(stderr, "ERROR: Missing Custom User File Information.");
-         exit (1);
-      }
+   {         
+      fprintf(stderr, "ERROR: Missing Custom User File Information.");
+      exit (1);
+   }
 
-   int userfile = open(a[2],O_RDONLY);
+   int userfile = open(a[2],O_RDONLY); //Check if input file can be found
    if (userfile == -1)
    {
       fprintf(stderr, "\n'%s' not found.", a[2]);
@@ -34,9 +34,6 @@ void errhandle()
 
 int main(int argc, char* argv[])
 {
-   
-   errhandle();
-
    int opt; 
    while((opt = getopt(argc, argv, "af")) != -1)
    {
@@ -44,6 +41,7 @@ int main(int argc, char* argv[])
       {
       case 'a':
          printf("\nShow the log times for all users that have entries in the file _PATH_WTMP.\n");
+         exit(0);
          break;
 
       case 'f':
@@ -59,4 +57,7 @@ int main(int argc, char* argv[])
            break;
       }
    }
+
+   errhandle();
+   printf("\n This is outside the switch.\n"); //This will run after it goes through all the opts unless opts has an exit code
 }
