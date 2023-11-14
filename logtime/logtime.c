@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 //Case when user includes -f option
-void userfile(char *a[])
+void userinputfile(char *a[])
 {
    if(a[2] == NULL) //Check if file was included in argument
       {
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
          break;
 
       case 'f':
-         userfile(argv);
+         userinputfile(argv);
          break;
 
       case '?' :
