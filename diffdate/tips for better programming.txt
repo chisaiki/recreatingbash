@@ -1,0 +1,11 @@
+look at main and go down from a top down view, 
+
+make functions more descriptive, made program larger by repeating elements, tons of replicated code 
+
+ex. set locale in main 
+
+make all terminal programs to be within 80 lines since thats how code wraps on terminal
+
+memset - fill memory with a constant byte (ex. a struct)
+
+try to avoid division and mod (unless mod power 2) is always going to be slow

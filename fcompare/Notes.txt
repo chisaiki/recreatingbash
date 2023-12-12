@@ -1,0 +1,54 @@
+./fcompare -a -r hi.txt love.txt answer.txt
+./fcompare -a -r hi.txt love.txt answer.txt
+
+My main issue was how to check if there were more than 1 operation present and make sure I stop it
+my solution is to count how many operations exist in a bool function
+
+optind is the index of the first word on the command line after the command line,
+ 
+
+I need to loop through the arguments and access their info based on input then display it based on option
+For each file, if the command is unable to obtain that file’s data for any reason, this is
+reported on standard error for that file.*/
+
+L Option: If any file is a symbolic link, uses the metadata of the link itself. 
+
+***NOTE***  a symbolic link is a file whose purpose is to point to a file or directory (called the "target") 
+by specifying a path thereto
+        is a special kind of file that points to another file
+
+For any file argument whose birth time is not available, 
+that file’s name is reported on standard error to be unavailable for comparison.
+
+FROM: SHOWSTAT.C
+/* For each file argument, call statx() and print its metadata. */
+
+    for ( i = optind; i < argc; i++) {
+        if ( statx(AT_FDCWD, argv[i], report_on_link, mask, &statx_buffer) < 0 )
+             printf("Could not stat file %s\n", argv[i]);
+        else {
+            if ( S_ISLNK(statx_buffer.stx_mode)) {  /* File's a soft link */
+                if ( report_on_link == AT_SYMLINK_NOFOLLOW) {
+                    /* Report is of the link itself, not its target, so
+                       write the file name in the form 'link -> target' */
+                    errno = 0;
+                    if ( -1 == (nbytes = readlink(argv[i], target, sizeof(target))))
+                        error_mssge(errno, "readlink");
+                    else {
+                        target[nbytes] = '\0';
+                        printf("  File: %s -> %s\n", argv[i], target);
+                    }
+                }
+                else /* Report is of the target */
+                    printf("  File: %s\n", argv[i]);
+            }
+            else
+                printf("  File: %s\n", argv[i]);
+
+            print_statx(&statx_buffer, to_print);
+
+
+/*Checks if any files are listed after the options : if optind is strictly greater than argc  
+    then there is at least one word if optind == argc then no words*/
+    if (optind >= argc) 
+    exit(0);

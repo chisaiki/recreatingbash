@@ -163,7 +163,7 @@ int runifvalid(int a, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    int opt;
+    int opt; //do i need to initialize it?
     while((opt = getopt(argc, argv, "fsw")) != -1)
     {
         switch(opt)

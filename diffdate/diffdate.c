@@ -4,7 +4,7 @@
 #include <time.h>
 #include <locale.h>
 #include <stdbool.h>
-#include<string.h>  
+#include <string.h>  
 
 bool validdate(int b, char *a[])
 {  
@@ -70,7 +70,6 @@ bool validdate(int b, char *a[])
    
 void oneargumentinput(char *a[])
 {
-   setlocale(LC_ALL, ""); //Takes current system locale setting
    
    //Finding current time 
    time_t date_t; //An arithmetic type capable of representing time                  
@@ -139,7 +138,6 @@ void oneargumentinput(char *a[])
 
 void twoargumentinput(char *a[])
 {
-   setlocale(LC_ALL, "");//The programs time will depend on current system locales
    struct tm arg2 = {0}; //Sets all struct values to 0
    struct tm arg1 = {0}; //tm must be initialized before the calling strptime
 
@@ -191,6 +189,8 @@ void twoargumentinput(char *a[])
 
 int main(int argc, char *argv[])
 { 
+    setlocale(LC_ALL, ""); //Takes current system locale setting
+
     switch(argc) //cases are based on the number of input arguments
     { 
         case 1: 
@@ -218,7 +218,8 @@ int main(int argc, char *argv[])
         }
 
         default:
-        fprintf(stderr,"Error: Invalid program usage. Please enter either 1 or 2 dates to compare. Format: YYYY-MM-DD.\n");
+        fprintf(stderr,"Error: Invalid program usage. Please enter either 1 or 2 dates to compare."
+                       "Format: YYYY-MM-DD.\n");
         break;
     } 
 }
